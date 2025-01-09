@@ -7,12 +7,12 @@ def obtenir_heure_systeme():
 def convertir_en_12H(heure):
     heures, minutes, secondes = heure
     periode = "AM"
-    if heures >= 12:
+    if heures > 12:
         periode = "PM"
         if heures > 12:
             heures -= 12
     elif heures == 0:
-        heures = 12
+        heures = 0
     return (heures, minutes, secondes, periode)
 
 def afficher_heure(heure_actuelle, alarme, choisir_12H_24H):
@@ -23,7 +23,7 @@ def afficher_heure(heure_actuelle, alarme, choisir_12H_24H):
         else:
             heure_formatee = f"{heure_actuelle[0]:02d}:{heure_actuelle[1]:02d}:{heure_actuelle[2]:02d}"
         
-        print(f"\r{heure_formatee}", end="", flush=True)
+        print(f"{heure_formatee}", end="\r", flush=True)
         time.sleep(1)
         heure_actuelle = (heure_actuelle[0], heure_actuelle[1], heure_actuelle[2] + 1)
         if heure_actuelle[2] >= 60:
