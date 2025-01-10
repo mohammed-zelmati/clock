@@ -3,8 +3,8 @@ def get_local_hour():
     local_time = time.localtime()
     return (local_time.tm_hour, local_time.tm_min, local_time.tm_sec)
    
-def convertir_en_12H(tuple):
-        h, m, s = tuple
+def convertir_en_12H(h,m,s):
+
         periode = "AM"
         if h >= 12:
             periode = "PM"
@@ -12,7 +12,7 @@ def convertir_en_12H(tuple):
                  h -= 12
         elif h == 0:
                 h= 12
-        return (h, m, s, periode)
+        return (h, m, s,periode)
 def clock_24h(h,m,s):
         try:  
                     while True : 
@@ -53,7 +53,7 @@ def clock_12h(h,m,s):
                                         h += 1   
                                     if h == 12:
                                         h = 0
-                                    new_tuple = convertir_en_12H((h, m, s))
+                                    new_tuple = convertir_en_12H((h,m,s))
                                     # Affichage au format HH : MM : SS
                                     print(f"{new_tuple[0]:02} : {new_tuple[1]:02} : {new_tuple[2]:02} {new_tuple[3]}", end="\r")
                                     
