@@ -2,7 +2,7 @@
 import time
 
 # extraction des éléments utiles depuis horloge locale
-local_time = time.localtime()
+local_time = time.gmtime()
 tuple = (local_time.tm_hour, local_time.tm_min, local_time.tm_sec)
 
 # Fonction horloge
