@@ -1,104 +1,78 @@
 import time
-def get_local_hour():
-    local_time = time.localtime()
-    return (local_time.tm_hour, local_time.tm_min, local_time.tm_sec)
-   
-def convertir_en_12H(tuple):
-        h, m, s = tuple
-        periode = "AM"
-        if h >= 12:
-            periode = "PM"
-            if h > 12:
-                 h -= 12
-        elif h == 0:
-                h= 12
-        return (h, m, s, periode)
-def clock_24h(h,m,s):
-        try:  
-                    while True : 
-                        s += 1
-                        
-                        # règles d'incrémentation des secondes, minutes, heures
-                        if s == 60 :
-                            s = 0
-                            m += 1
-                        
-                        if m == 60 :
-                            m = 0
-                            h += 1   
-                        if h == 24 :
-                            h = 0
-                        
-                        # Création du tuple
-                        new_tuple = (h, m, s)
-                        # Affichage au format HH : MM : SS
-                        print(f"{new_tuple[0]:02} : {new_tuple[1]:02} : {new_tuple[2]:02}", end="\r")
-                        
-                        time.sleep(1)
-        except KeyboardInterrupt:
-                    alarm()
-def clock_12h(h,m,s):
-            try:  
-                                while True : 
 
-                                    s += 1
-                                    
-                                    # règles d'incrémentation des secondes, minutes, heures
-                                    if s == 60 :
-                                        s = 0
-                                        m += 1
-                                    
-                                    if m == 60 :
-                                        m = 0
-                                        h += 1   
-                                    if h == 12:
-                                        h = 0
-                                    new_tuple = convertir_en_12H((h, m, s))
-                                    # Affichage au format HH : MM : SS
-                                    print(f"{new_tuple[0]:02} : {new_tuple[1]:02} : {new_tuple[2]:02} {new_tuple[3]}", end="\r")
-                                    
-                                    time.sleep(1)
-                            
-            except KeyboardInterrupt:
-                main()
-                      # Boucle infinie, incrémentée seconde par seconde, possibilité de stop (KeyboardInterrupt)
-        
-def alarm():
-    print("Mode Alarme  ")
+def convertir_AM_PM(h, m, s):
+    periode = "AM"
+    if h >= 12:
+        periode = "PM"
+        if h > 12:
+            h -= 12
+    elif h == 0:
+        h = 12
+    return h, m, s, periode
+
+def clock(h, m, s, format_AM):
+    try:
+        while True:
+            s += 1
+            if s == 60:
+                s = 0
+                m += 1
+            if m == 60:
+                m = 0
+                h += 1
+            
+            if format_AM:
+                if h == 12:
+                    h = 0
+                h, m, s, periode = convertir_AM_PM(h, m, s)
+                print(f"{h:02} : {m:02} : {s:02} {periode}", end="\r")
+            else:
+                if h == 24:
+                    h = 0
+                print(f"{h:02} : {m:02} : {s:02}", end="\r")
+                
+            time.sleep(1)
+    except KeyboardInterrupt:
+        alarm(format_AM)
+
+def alarm(format_AM):
+    print("Mode Alarme")
     h_alarm = int(input("Veuillez renseigner l'heure :"))
     m_alarm = int(input("Veuillez renseigner les minutes :"))
     print(f"Alarme réglée pour {h_alarm:02} : {m_alarm:02}")
-          
+
     while True:
-            local_time =get_local_hour()
-            local_hour = local_time[0]
-            local_minutes = local_time[1]
-            local_secondes = local_time[2]
-            if h_alarm == local_hour and m_alarm == local_minutes:
-                try:
-                      while True:
-                            print("Alarm !!!!       ",end="\r")
-                
-                except KeyboardInterrupt:
-                       main()
-            else:
-                  print(f"{local_hour:02} : {local_minutes:02} : {local_secondes:02}",end="\r", flush=True)
-# Fonction horloge
-def main():
-    tuple = get_local_hour()
+        local_hour, local_minutes, local_secondes = affiche_heure()
+        if h_alarm == local_hour and m_alarm == local_minutes:
+            try:
+                end_time = time.time() + 30  # 30 secondes de sonnerie d'alarme
+                while time.time() < end_time:
+                    print("Alarm !!!!       ", end="\r")
+                    # Ajoutez un son d'alarme ici si nécessaire
+                    time.sleep(1)
+                break
+            except KeyboardInterrupt:
+                main()
+        else:
+            print(f"{local_hour:02} : {local_minutes:02} : {local_secondes:02}", end="\r", flush=True)
     
-    format_choice = input("Veux-tu le format PM/AM ? \nSi oui, tape simplement O, si non tape sur n'importe quoi. \n").upper()
-            # Valeurs secondes(s), minutes(m), heures(h)
-    s = tuple[2]
-    m = tuple[1]
-    h = tuple[0]
-    
-    if format_choice == "O":
-        
-        clock_12h(h,m,s)
-        
+    # Afficher l'heure actuelle après 30 secondes de sonnerie
+    h, m, s = affiche_heure()
+    if format_AM:
+        h, m, s, periode = convertir_AM_PM(h, m, s)
+        print(f"Heure actuelle : {h:02} : {m:02} : {s:02} {periode}")
     else:
-       clock_24h(h,s,m)
-        
-            
-main()
+        print(f"Heure actuelle : {h:02} : {m:02} : {s:02}")
+
+def affiche_heure():
+    t = time.localtime()
+    return t.tm_hour, t.tm_min, t.tm_sec
+
+def main():
+    h, m, s = affiche_heure()
+    format_choix = input("Veux-tu le format PM/AM ? \nSi oui, tape simplement O, sinon tape sur n'importe quoi. \n").upper()
+    format_AM = (format_choix == "O")
+    clock(h, m, s, format_AM)
+
+if __name__ == "__main__":
+    main()
