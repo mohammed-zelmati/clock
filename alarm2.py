@@ -16,11 +16,11 @@ def alarm():
                 try:
                       while True:
                             print("Alarm !!!!       ",end="\r")
+                
                 except KeyboardInterrupt:
-                       
                        print(f"{local_time.tm_hour:02} : {local_time.tm_min:02} : {local_time.tm_sec}",end="\r", flush=True)
-                       print(f"Alarm Off à: {local_time.tm_hour:02} : {local_time.tm_min:02}")
-                       break
+                       print(f"Alarm Off, il est {local_time.tm_hour:02}:{local_time.tm_min:02}")
+
             else:
                   print(f"{local_time.tm_hour:02} : {local_time.tm_min:02} : {local_time.tm_sec:02}",end="\r", flush=True)
                   

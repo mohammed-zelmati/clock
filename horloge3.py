@@ -26,13 +26,13 @@ def alarm():
                        clock()
             else:
                   print(f"{local_hour:02} : {local_minutes:02} : {local_secondes:02}",end="\r", flush=True)
-                  
-time.sleep(1)
+
 
 # Fonction horloge
 def clock():
     
     tuple = get_local_hour()
+
 
     # Valeurs secondes(s), minutes(m), heures(h)
     s = tuple[2]
