@@ -22,7 +22,8 @@ def incrementer_heure(h, m, s):
 
 # Afficher l'heure dans le format HH:MM:SS
 def afficher_heure(h, m, s):
-    print(f"{h:02} : {m:02} : {s:02}", end="\r")
+    print(f"            {h:02} : {m:02} : {s:02}", end="\r")
+
 
 # Convertir l'heure en format 12 heures (AM/PM)
 def convertir_en_12H(h, m, s):
@@ -37,6 +38,14 @@ def convertir_en_12H(h, m, s):
 
 # Heure en format 24 heures
 def horloge_24h(h, m, s):
+    
+    print("")
+    print("═════════════════════════════════════")
+    print("************  Horloge  ************")
+    print("═════════════════════════════════════")
+    print("      CTRL + C pour les options      ")
+    print("═════════════════════════════════════")
+        
     try:
         while True:
             h, m, s = incrementer_heure(h, m, s)
@@ -47,10 +56,19 @@ def horloge_24h(h, m, s):
             time.sleep(1)  
     # Control + C => mode alarme
     except KeyboardInterrupt:
-        mode_alarme()  
+            choix_options(h,m,s)
 
+
+    
 # Fonction pour afficher l'heure en format 12 heures
 def horloge_12h(h, m, s):
+    print("")
+    print("═════════════════════════════════════")
+    print("************  Horloge  ************")
+    print("═════════════════════════════════════")
+    print("        CTRL + C pour sortir        ")
+    print("═════════════════════════════════════")
+        
     try:
         while True:
             h, m, s = incrementer_heure(h, m, s)
@@ -58,19 +76,35 @@ def horloge_12h(h, m, s):
             # Conversion et affichage au format 12 heures
             nouveau_tuple = convertir_en_12H(h, m, s)
             
-            print(f"{nouveau_tuple[0]:02} : {nouveau_tuple[1]:02} : {nouveau_tuple[2]:02} {nouveau_tuple[3]}", end="\r")
+            print(f"          {nouveau_tuple[0]:02} : {nouveau_tuple[1]:02} : {nouveau_tuple[2]:02} {nouveau_tuple[3]}", end="\r")
             
             # Pause d'une seconde
             time.sleep(1)  
     
     except KeyboardInterrupt:
         main()  # Control + C => retour à la fonction principale
+def choix_options(h,m,s):
+    print("=====================================")
+    print("************  Options  ************")
+    print("=====================================")
+    choix = input(" Programmer une alarme: Tape A \n Passer en Mode AM/PM: Tape B \n Retour à l'horloge: Tape n'importe quoi \n") .upper()
 
+    if choix == "A":
+        mode_alarme()
+    if choix == "B":
+        horloge_12h(h, m, s)
+    else:
+        main()
 # Fonction pour gérer le mode alarme
 def mode_alarme():
-    print("Mode Alarme")
+    
+    print("=====================================")
+    print("************  Alarme  ************")
+    print("=====================================")
+    
     h_alarme = int(input("Veuillez renseigner l'heure :"))
     m_alarme = int(input("Veuillez renseigner les minutes :"))
+    
     try:
         print(f"Alarme réglée pour {h_alarme:02} : {m_alarme:02}")
         
@@ -87,28 +121,25 @@ def mode_alarme():
             else:
                 # Affichage de l'heure locale 
                 print(f"{heure_locale:02} : {minute_locale:02} : {seconde_locale:02}", end="\r", flush=True)
+    
     # Control +C = relance la fonction principale
     except KeyboardInterrupt:
         main()  
 
 # Fonction principale pour lancer l'horloge
 def main():
+
     # Récupère l'heure actuelle
     tuple_heure = obtenir_heure_locale()  
     
-    # Choix du mode AM/PM ou 24h
-    choix_format = input("Veux-tu le format PM/AM ? \nSi oui, tape simplement O, si non tape sur n'importe quoi. \n").upper()
     
-    # Assigne des valeurs aux variables utilisées
+     # Assigne des valeurs aux variables utilisées
     s = tuple_heure[2]
     m = tuple_heure[1]
     h = tuple_heure[0]
     
-    # affiche l'heure en fonction du mode utilisé
-    if choix_format == "O":
-        horloge_12h(h, m, s)  
-    else:
-        horloge_24h(h, m, s)  
+    #Appel de l'horloge
+    horloge_24h(h, m, s)  
 
 # Lance la fonction proprement
 if __name__ == "__main__":
