@@ -1,5 +1,5 @@
-import time # importer le package de time
-from playsound import playsound  # importer le package de playsound qui lire le fichier de son
+import time 
+from playsound import playsound 
 
 # Obtient l'heure locale actuelle
 def obtenir_heure_locale():
