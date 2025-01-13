@@ -1,5 +1,6 @@
 import time
 
+
 # Obtenir l'heure locale actuelle
 def obtenir_heure_locale():
     local_time = time.localtime()
@@ -29,8 +30,8 @@ def convertir_en_12H(h, m, s):
         periode = "PM"
         if h > 12:
             h -= 12
-    elif h == 0:
-        h = 12
+    elif h == 12:
+        h = 0
     return (h, m, s, periode)
 
 # Heure en format 24 heures
@@ -51,7 +52,6 @@ def horloge_24h(h, m, s):
 
 # Fonction pour afficher l'heure en format 12 heures
 def horloge_12h(h, m, s):
-    print("")
     print("═════════════════════════════════════")
     print("************  Horloge  ************")
     print("═════════════════════════════════════")
@@ -106,6 +106,7 @@ def main():
     s = tuple_heure[2]
     m = tuple_heure[1]
     h = tuple_heure[0]
+    
     horloge_24h(h, m, s)
 
 # Lance la fonction proprement
