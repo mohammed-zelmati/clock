@@ -30,12 +30,12 @@ def convertir_en_12H(h, m, s):
         periode = "PM"
         if h > 12:
             h -= 12
-    elif h == 12:
-        h = 0
+    elif h == 0:
+        h = 12
     return (h, m, s, periode)
 
 # Heure en format 24 heures
-def horloge_24h(h, m, s):
+def horloge_24h_ou_12h(h, m, s, mode="24h"):
     print("")
     print("═════════════════════════════════════")
     print("************  Horloge  ************")
@@ -45,7 +45,11 @@ def horloge_24h(h, m, s):
     try:
         while True:
             h, m, s = incrementer_heure(h, m, s)
-            afficher_heure(h, m, s)
+            if mode == "24h":
+                afficher_heure(h, m, s)
+            elif mode == "12h":
+                h12, m12, s12, periode = convertir_en_12H(h, m, s)
+                print(f"            {h12:02} : {m12:02} : {s12:02} {periode}", end="\r")
             time.sleep(1)
     except KeyboardInterrupt:
         choix_options(h, m, s)
@@ -61,7 +65,7 @@ def horloge_12h(h, m, s):
         while True:
             h, m, s = incrementer_heure(h, m, s)
             nouveau_tuple = convertir_en_12H(h, m, s)
-            print(f"          {nouveau_tuple[0]:02} : {nouveau_tuple[1]:02} : {nouveau_tuple[2]:02} {nouveau_tuple[3]}", end="\r")
+            print(f"            {nouveau_tuple[0]:02} : {nouveau_tuple[1]:02} {nouveau_tuple[2]} {nouveau_tuple[3]}", end="\r")
             time.sleep(1)
     except KeyboardInterrupt:
         main()
@@ -74,7 +78,7 @@ def choix_options(h, m, s):
     if choix == "A":
         mode_alarme()
     if choix == "B":
-        horloge_12h(h, m, s)
+        horloge_24h_ou_12h(h, m, s, mode="12h")
     else:
         main()
 
@@ -107,7 +111,7 @@ def main():
     m = tuple_heure[1]
     h = tuple_heure[0]
     
-    horloge_24h(h, m, s)
+    horloge_24h_ou_12h(h, m, s, mode="24h")
 
 # Lance la fonction proprement
 if __name__ == "__main__":
