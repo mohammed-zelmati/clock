@@ -54,22 +54,6 @@ def horloge_24h_ou_12h(h, m, s, mode="24h"):
     except KeyboardInterrupt:
         choix_options(h, m, s)
 
-# Fonction pour afficher l'heure en format 12 heures
-def horloge_12h(h, m, s):
-    print("═════════════════════════════════════")
-    print("************  Horloge  ************")
-    print("═════════════════════════════════════")
-    print("        CTRL + C pour sortir        ")
-    print("═════════════════════════════════════")
-    try:
-        while True:
-            h, m, s = incrementer_heure(h, m, s)
-            nouveau_tuple = convertir_en_12H(h, m, s)
-            print(f"            {nouveau_tuple[0]:02} : {nouveau_tuple[1]:02} {nouveau_tuple[2]} {nouveau_tuple[3]}", end="\r")
-            time.sleep(1)
-    except KeyboardInterrupt:
-        main()
-
 def choix_options(h, m, s):
     print("=====================================")
     print("************  Options  ************")
