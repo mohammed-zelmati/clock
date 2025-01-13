@@ -51,8 +51,7 @@ def gerer_et_definir_alarme(h, m, s, format_24h, alarme_h, alarme_m):
                     playsound('alarme.mp3')  # Joue le son de l'alarme
                     stop = input("Tapez 'S' pour arrêter l'alarme : ").upper()
                     if stop == "S":
-                        # main()
-                        afficher_heure(h, m, s)  # Affiche l'heure après l'arrêt de l'alarme
+                        return  # ne retourne rien après l'arrêt de l'alarme
             time.sleep(1)
     except KeyboardInterrupt:
         choix_options(h, m, s, format_24h)
