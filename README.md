@@ -2,6 +2,7 @@ Python Clock and Alarm
 This project is a simple digital clock with an alarm feature, implemented in Python. It displays the local time in either 24-hour or AM/PM format and allows you to set an alarm that rings at a specified time.
 
 Features
+Features
 Display local time in 24-hour or AM/PM format.
 Automatic incrementation of hours, minutes, and seconds.
 Set an alarm to ring at a specified time.
