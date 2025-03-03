@@ -14,7 +14,7 @@ Installation
 Clone the repository:
 
 Copier
-git clone https://github.com/yourusername/clock-alarm.git
+git clone https://github.com/paul-emmanuel.buffe/clock-alarm.git
 Navigate to the project directory:
 
 Copier
