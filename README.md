@@ -11,23 +11,7 @@ Requirements
 Python 3.x
 playsound library for playing alarm sounds
 Installation
-Clone the repository:
 
-Copier
-git clone https://github.com/paul-emmanuel.buffe/clock-alarm.git
-Navigate to the project directory:
-
-Copier
-cd clock-alarm
-Install the required library:
-
-Copier
-pip install playsound
-Usage
-Run the script:
-
-Copier
-python clock_alarm.py
 Use the following options:
 
 Press CTRL + C to access the options menu.
